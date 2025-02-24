@@ -11,8 +11,8 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'HK Cash Rebate Calculator',
-        short_name: 'HK Cash Rebate',
+        name: 'Cash Rebate Calculator HK',
+        short_name: 'Cash Rebate HK',
         description: 'A simple cash rebate calculator for shopping in Hong Kong',
         theme_color: '#000000',
         background_color: '#000000',

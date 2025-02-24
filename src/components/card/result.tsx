@@ -1,11 +1,18 @@
 import { Badge } from '@/components/ui/badge'
-import { DefaultCardImage } from '@/components/image/DefaultCardImage'
+import { CreditCard } from '@/components/image/credit-card'
 
 export interface ResultCardProps {
   title: string
   imageUrl: string
   badges: {
-    variant: 'default' | 'secondary' | 'destructive'
+    variant:
+      | 'default'
+      | 'secondary'
+      | 'destructive'
+      | 'online'
+      | 'physical'
+      | 'overseas'
+      | 'outline'
     text: string
   }[]
   details: string[]
@@ -18,7 +25,7 @@ export function ResultCard({ imageUrl, title, badges, details }: ResultCardProps
         {imageUrl ? (
           <img className="w-[96px] h-[60px] object-cover aspect-[1.6]" src={imageUrl} alt={title} />
         ) : (
-          <DefaultCardImage className="w-[96px] h-[60px] object-cover aspect-[1.6]" />
+          <CreditCard className="w-[96px] h-[60px] object-cover aspect-[1.6]" />
         )}
         <div className="flex flex-col space-y-2">
           <div className="font-semibold">{title}</div>

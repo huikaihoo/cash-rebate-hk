@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ThemeProvider } from '@/components/theme-provider'
 import { FilterCard, FilterOptions, FilterValue } from '@/components/card/filter'
 import { ResultCardList, ResultCardProps } from '@/components/card/result'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -29,7 +28,7 @@ const cardList: ResultCardProps[] = [
     imageUrl: '',
     title: 'Hang Seng Travel+ Visa Signature Card',
     badges: [
-      { variant: 'default', text: '7%' },
+      { variant: 'overseas', text: '7%' },
       { variant: 'secondary', text: '5%' },
       { variant: 'secondary', text: '0.4%' },
     ],
@@ -40,7 +39,7 @@ const cardList: ResultCardProps[] = [
       'https://www.dbs.com.hk/iwov-resources/images/creditcards/eminent-card/emiplat-cardface-160x100.jpg',
     title: 'DBS Eminent Visa Platinum Card',
     badges: [
-      { variant: 'default', text: '5%' },
+      { variant: 'physical', text: '5%' },
       { variant: 'secondary', text: '1%' },
       { variant: 'secondary', text: '0%' },
     ],
@@ -50,7 +49,7 @@ const cardList: ResultCardProps[] = [
     imageUrl: 'https://cdn.hongkongcard.com/img/2019/09/forum/20190915225206_5d7e5016b8ddb.jpg',
     title: 'HSBC Red Credit Card',
     badges: [
-      { variant: 'default', text: '4%' },
+      { variant: 'online', text: '4%' },
       { variant: 'secondary', text: '1%' },
       { variant: 'destructive', text: 'CBF -1%' },
     ],
@@ -58,8 +57,7 @@ const cardList: ResultCardProps[] = [
   },
 ]
 
-function App() {
-  // const [count, setCount] = useState(0)
+function App({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   const [filterValue, setFilterValue] = useState<FilterValue>({
     category: filterOptions.categories[0],
     name: null,
@@ -68,8 +66,7 @@ function App() {
   })
 
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      {/* <Button onClick={() => setCount((count) => count + 1)}>count is {count}</Button> */}
+    <div className={className} {...props}>
       <Alert>
         <TriangleAlert className="h-4 w-4" />
         <AlertTitle>Disclaimer</AlertTitle>
@@ -110,12 +107,27 @@ function App() {
         </TabsContent>
         <br />
         <TabsList className="grid w-full grid-cols-3 sticky bottom-2">
-          <TabsTrigger value="online">Online</TabsTrigger>
-          <TabsTrigger value="physical">Physical</TabsTrigger>
-          <TabsTrigger value="overseas">Overseas</TabsTrigger>
+          <TabsTrigger
+            className="data-[state=active]:bg-color-orange data-[state=active]:text-destructive-foreground"
+            value="online"
+          >
+            Online
+          </TabsTrigger>
+          <TabsTrigger
+            className="data-[state=active]:bg-color-green data-[state=active]:text-destructive-foreground"
+            value="physical"
+          >
+            Physical
+          </TabsTrigger>
+          <TabsTrigger
+            className="data-[state=active]:bg-color-blue data-[state=active]:text-destructive-foreground"
+            value="overseas"
+          >
+            Overseas
+          </TabsTrigger>
         </TabsList>
       </Tabs>
-    </ThemeProvider>
+    </div>
   )
 }
 

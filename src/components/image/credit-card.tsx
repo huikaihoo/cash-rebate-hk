@@ -1,8 +1,4 @@
-export interface DefaultCardImageProps {
-  className?: string
-}
-
-export function DefaultCardImage({ className }: DefaultCardImageProps) {
+export function CreditCard({ className }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

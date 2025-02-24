@@ -32,7 +32,7 @@ export function ComboboxResponsive({
   item,
   onItemChange,
 }: ComboboxResponsiveProps) {
-  const isDesktop = useMediaQuery('(min-width: 768px)')
+  const isDesktop = !useMediaQuery('(max-width: 768px),(hover:none),(pointer:coarse)')
   const [open, setOpen] = React.useState(false)
 
   if (isDesktop) {
