@@ -21,6 +21,7 @@ import {
 import { ListFilter } from 'lucide-react'
 import { useLocalStorage } from '@/hooks/use-local-storage'
 import { Item } from '@/models/basic'
+import { Trans, useTranslation } from 'react-i18next'
 
 export interface FilterValue {
   category: Item | null
@@ -43,6 +44,7 @@ export interface FilterContentProps {
 }
 
 export function FilterCard({ type, value, options, setValue }: FilterContentProps) {
+  const { t } = useTranslation()
   const [accordionState, setAccordionState] = useLocalStorage('filterAccordionState', 'filter')
   const { names, categories, locations } = options
 
@@ -57,14 +59,14 @@ export function FilterCard({ type, value, options, setValue }: FilterContentProp
       <AccordionItem value="filter">
         <AccordionTrigger>
           <div className="flex items-center space-x-4">
-            <ListFilter /> <span>Filter</span>
+            <ListFilter /> <span>{t('filter.title')}</span>
           </div>
         </AccordionTrigger>
         <AccordionContent>
           <div className="grid w-full items-center gap-4 pt-4 px-2">
             {/* Shop Category */}
             <div className="flex flex-col space-y-2">
-              <Label htmlFor="category">Shop Category</Label>
+              <Label htmlFor="category">{t('filter.category')}</Label>
               <Select
                 value={value.category?.value || ''}
                 onValueChange={(newValue) => {
@@ -73,14 +75,20 @@ export function FilterCard({ type, value, options, setValue }: FilterContentProp
                 }}
               >
                 <SelectTrigger className="w-full justify-between">
-                  <SelectValue placeholder="Select shop category ...">
-                    {value.category?.label}
+                  <SelectValue placeholder={t('filter.category')}>
+                    <Trans
+                      i18nKey={`categories.${value.category?.value}`}
+                      defaults={value.category?.label}
+                    />
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent align="start">
-                  {categories.map((cat) => (
-                    <SelectItem key={cat.value} value={cat.value}>
-                      {cat.label}
+                  {categories.map((categoryItem) => (
+                    <SelectItem key={categoryItem.value} value={categoryItem.value}>
+                      <Trans
+                        i18nKey={`categories.${categoryItem.value}`}
+                        defaults={categoryItem.label}
+                      />
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -90,22 +98,22 @@ export function FilterCard({ type, value, options, setValue }: FilterContentProp
             {/* Conditionally render Shop Name or Location */}
             {type === 'overseas' ? (
               <div className="flex flex-col space-y-2">
-                <Label htmlFor="location">Location</Label>
+                <Label htmlFor="location">{t('filter.location')}</Label>
                 <ComboboxResponsive
                   options={locations}
-                  placeholder="Search for location ..."
-                  emptyText="No location found."
+                  placeholder={t('filter.placeholder.location')}
+                  emptyText={t('filter.emptyText.location')}
                   item={value.location}
                   onItemChange={(newItem) => setValue((prev) => ({ ...prev, location: newItem }))}
                 />
               </div>
             ) : (
               <div className="flex flex-col space-y-2">
-                <Label htmlFor="name">Shop Name</Label>
+                <Label htmlFor="name">{t('filter.name')}</Label>
                 <ComboboxResponsive
                   options={names}
-                  placeholder="Search for shop ..."
-                  emptyText="No shop found."
+                  placeholder={t('filter.placeholder.name')}
+                  emptyText={t('filter.emptyText.name')}
                   item={value.name}
                   onItemChange={(newItem) => setValue((prev) => ({ ...prev, name: newItem }))}
                 />
@@ -114,7 +122,7 @@ export function FilterCard({ type, value, options, setValue }: FilterContentProp
 
             {/* Amount */}
             <div className="flex flex-col space-y-2">
-              <Label htmlFor="amount">Amount</Label>
+              <Label htmlFor="amount">{t('filter.amount')}</Label>
               <div className="flex items-center space-x-2">
                 <Badge variant="outline">HKD</Badge>
                 <Input
