@@ -25,19 +25,19 @@ import { Trans, useTranslation } from 'react-i18next'
 
 export interface FilterValue {
   category: Item | null
-  name: Item | null
+  shop: Item | null
   location: Item | null
   amount: number
 }
 
 export interface FilterOptions {
   categories: Item[]
-  names: Item[]
+  shops: Item[]
   locations: Item[]
 }
 
 export interface FilterContentProps {
-  type: 'online' | 'physical' | 'overseas'
+  type: 'online' | 'local' | 'overseas'
   options: FilterOptions
   value: FilterValue
   setValue: React.Dispatch<React.SetStateAction<FilterValue>>
@@ -46,7 +46,7 @@ export interface FilterContentProps {
 export function FilterCard({ type, value, options, setValue }: FilterContentProps) {
   const { t } = useTranslation()
   const [accordionState, setAccordionState] = useLocalStorage('filterAccordionState', 'filter')
-  const { names, categories, locations } = options
+  const { shops, categories, locations } = options
 
   return (
     <Accordion
@@ -109,13 +109,13 @@ export function FilterCard({ type, value, options, setValue }: FilterContentProp
               </div>
             ) : (
               <div className="flex flex-col space-y-2">
-                <Label htmlFor="name">{t('filter.name')}</Label>
+                <Label htmlFor="name">{t('filter.shop')}</Label>
                 <ComboboxResponsive
-                  options={names}
-                  placeholder={t('filter.placeholder.name')}
-                  emptyText={t('filter.emptyText.name')}
-                  item={value.name}
-                  onItemChange={(newItem) => setValue((prev) => ({ ...prev, name: newItem }))}
+                  options={shops}
+                  placeholder={t('filter.placeholder.shop')}
+                  emptyText={t('filter.emptyText.shop')}
+                  item={value.shop}
+                  onItemChange={(newItem) => setValue((prev) => ({ ...prev, shop: newItem }))}
                 />
               </div>
             )}

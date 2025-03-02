@@ -18,7 +18,7 @@ const cardList: ResultCardProps[] = [
       'https://www.dbs.com.hk/iwov-resources/images/creditcards/eminent-card/emiplat-cardface-160x100.jpg',
     title: 'DBS Eminent Visa Platinum Card',
     badges: [
-      { variant: 'physical', text: '5%' },
+      { variant: 'local', text: '5%' },
       { variant: 'secondary', text: '1%' },
       { variant: 'secondary', text: '0%' },
     ],

@@ -13,7 +13,7 @@ const resources = {
       },
       type: {
         online: 'Online',
-        physical: 'Physical',
+        local: 'Local',
         overseas: 'Overseas',
       },
       filter: {
@@ -55,21 +55,21 @@ const resources = {
       },
       type: {
         online: '網上',
-        physical: '實體',
+        local: '本地',
         overseas: '海外',
       },
       filter: {
         title: '篩選',
         category: '商店類別',
-        name: '商店名稱',
+        shop: '商店名稱',
         location: '地點',
         amount: '金額',
         placeholder: {
-          name: '搜尋商店 ...',
+          shop: '搜尋商店 ...',
           location: '搜尋地點 ...',
         },
         emptyText: {
-          name: '未找到商店',
+          shop: '未找到商店',
           location: '未找到地點',
         },
       },

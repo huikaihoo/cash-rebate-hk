@@ -14,7 +14,7 @@ const filterOptions: FilterOptions = {
     { value: 'transportation', label: 'Transportation' },
     { value: 'entertainment', label: 'Entertainment' },
   ],
-  names: [
+  shops: [
     { value: 'mcdonalds', label: "麥當勞 McDonald's" },
     { value: 'kfc', label: '肯德基 KFC' },
     { value: 'starbucks', label: '星巴克 Starbucks' },
@@ -37,18 +37,18 @@ const filterOptions: FilterOptions = {
     { value: 'sg', label: '🇸🇬 新加坡 Singapore' },
     { value: 'my', label: '🇲🇾 馬來西亞 Malaysia' },
     { value: 'uk', label: '🇬🇧 英國 United Kingdom' },
-    { value: 'eu', label: '🇪🇺 歐洲 Europe' },
+    { value: 'eea', label: '🇪🇺 歐洲經濟區 Europe (EEA)' },
     { value: 'us', label: '🇺🇸 美國 United States' },
     { value: 'ca', label: '🇨🇦 加拿大 Canada' },
     { value: 'au', label: '🇦🇺 澳洲 Australia' },
     { value: 'nz', label: '🇳🇿 紐西蘭 New Zealand' },
-    { value: 'other', label: '🌏 其他 Others' },
+    { value: 'others', label: '🌏 其他 Others' },
   ],
 }
 
 export class OptionService implements Service<FilterOptions> {
   getDefaultData(): FilterOptions {
-    return { categories: [{ value: 'any', label: '(Any)' }], names: [], locations: [] }
+    return { categories: [{ value: 'any', label: '(Any)' }], shops: [], locations: [] }
   }
 
   async getData(): Promise<FilterOptions> {

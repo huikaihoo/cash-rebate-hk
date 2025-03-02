@@ -6,14 +6,7 @@ export interface ResultCardProps {
   title: string
   imageUrl: string
   badges: {
-    variant:
-      | 'default'
-      | 'secondary'
-      | 'destructive'
-      | 'online'
-      | 'physical'
-      | 'overseas'
-      | 'outline'
+    variant: 'default' | 'secondary' | 'destructive' | 'online' | 'local' | 'overseas' | 'outline'
     text: string
   }[]
   details: string[]

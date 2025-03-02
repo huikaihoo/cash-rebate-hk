@@ -15,7 +15,7 @@ const badgeVariants = cva(
           'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
         online:
           'border-transparent bg-color-orange text-destructive-foreground hover:bg-color-orange/80',
-        physical:
+        local:
           'border-transparent bg-color-green text-destructive-foreground hover:bg-color-green/80',
         overseas:
           'border-transparent bg-color-blue text-destructive-foreground hover:bg-color-blue/80',

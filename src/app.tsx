@@ -20,7 +20,7 @@ function App() {
   const [showWarning, setShowWarning] = useState(true) // TODO: Use local storage to persist this state
   const [filterValue, setFilterValue] = useState<FilterValue>({
     category: optionService.getDefaultData().categories[0],
-    name: null,
+    shop: null,
     location: null,
     amount: 0,
   })
@@ -37,7 +37,7 @@ function App() {
           </button>
         </Alert>
       )}
-      <Tabs defaultValue="physical" className="w-full">
+      <Tabs defaultValue="local" className="w-full">
         <TabsContent className="space-y-2" value="online">
           <ResultCardList results={cardList} />
           <FilterCard
@@ -47,10 +47,10 @@ function App() {
             setValue={setFilterValue}
           />
         </TabsContent>
-        <TabsContent className="space-y-2" value="physical">
+        <TabsContent className="space-y-2" value="local">
           <ResultCardList results={cardList} />
           <FilterCard
-            type="physical"
+            type="local"
             options={filterOptions}
             value={filterValue}
             setValue={setFilterValue}
@@ -75,9 +75,9 @@ function App() {
           </TabsTrigger>
           <TabsTrigger
             className="data-[state=active]:bg-color-green data-[state=active]:text-destructive-foreground"
-            value="physical"
+            value="local"
           >
-            {t('type.physical')}
+            {t('type.local')}
           </TabsTrigger>
           <TabsTrigger
             className="data-[state=active]:bg-color-blue data-[state=active]:text-destructive-foreground"
