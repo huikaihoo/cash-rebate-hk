@@ -19,15 +19,19 @@ const resources = {
       filter: {
         title: 'Filter',
         category: 'Shop Category',
-        name: 'Shop Name',
+        shop: 'Shop Name',
         location: 'Location',
         amount: 'Amount',
+        currency: {
+          local: 'Settlement in local currency (HKD)',
+          foreign: 'Settlement in foreign currency',
+        },
         placeholder: {
-          name: 'Search for shop ...',
+          shop: 'Search for shop ...',
           location: 'Search for location ...',
         },
         emptyText: {
-          name: 'No shop found.',
+          shop: 'No shop found.',
           location: 'No location found.',
         },
       },
@@ -64,6 +68,10 @@ const resources = {
         shop: '商店名稱',
         location: '地點',
         amount: '金額',
+        currency: {
+          local: '使用港幣結算',
+          foreign: '使用外幣結算',
+        },
         placeholder: {
           shop: '搜尋商店 ...',
           location: '搜尋地點 ...',

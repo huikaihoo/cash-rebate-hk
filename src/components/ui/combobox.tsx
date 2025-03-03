@@ -16,6 +16,7 @@ import {
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Item } from '@/models/basic'
+import { WithClearButton } from './with-clear-button'
 
 interface ComboboxResponsiveProps {
   options: Item[]
@@ -23,6 +24,7 @@ interface ComboboxResponsiveProps {
   emptyText?: string
   item: Item | null
   onItemChange: (item: Item | null) => void
+  disabled?: boolean
 }
 
 export function ComboboxResponsive({
@@ -31,59 +33,68 @@ export function ComboboxResponsive({
   emptyText,
   item,
   onItemChange,
+  disabled = false,
 }: ComboboxResponsiveProps) {
   const isDesktop = !useMediaQuery('(max-width: 768px),(hover:none),(pointer:coarse)')
   const [open, setOpen] = React.useState(false)
 
-  if (isDesktop) {
-    return (
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="Combobox"
-            aria-expanded={open}
-            className="justify-between"
-          >
-            {item ? <>{item.label}</> : <div className="text-muted-foreground">{placeholder}</div>}
-            <ChevronsUpDown className="h-4 w-4 opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="p-0" align="center">
-          <ItemList
-            options={options}
-            selectedItem={item}
-            setOpen={setOpen}
-            onItemChange={onItemChange}
-            placeholder={placeholder}
-            emptyText={emptyText}
-          />
-        </PopoverContent>
-      </Popover>
-    )
-  }
+  const triggerButton = (
+    <Button
+      aria-expanded={open}
+      variant="outline"
+      className="justify-between w-full border-none pl-3 pr-2"
+      disabled={disabled}
+    >
+      {item ? <>{item.label}</> : <div className="text-muted-foreground">{placeholder}</div>}
+      <ChevronsUpDown className="h-4 w-4 opacity-50" />
+    </Button>
+  )
 
+  const itemList = (
+    <ItemList
+      options={options}
+      selectedItem={item}
+      setOpen={setOpen}
+      onItemChange={onItemChange}
+      placeholder={placeholder}
+      emptyText={emptyText}
+      disabled={disabled}
+    />
+  )
+
+  // Render the appropriate UI based on device type
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>
-        <Button variant="outline" className="justify-between">
-          {item ? <>{item.label}</> : <div className="text-muted-foreground">{placeholder}</div>}
-          <ChevronsUpDown className="h-4 w-4 opacity-50" />
-        </Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        <div className="mt-4 border-t">
-          <ItemList
-            options={options}
-            selectedItem={item}
-            setOpen={setOpen}
-            onItemChange={onItemChange}
-            placeholder={placeholder}
-            emptyText={emptyText}
-          />
-        </div>
-      </DrawerContent>
-    </Drawer>
+    <WithClearButton
+      onClear={() => {
+        onItemChange(null)
+        setOpen(false)
+      }}
+      disabled={disabled}
+    >
+      {isDesktop ? (
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>{triggerButton}</PopoverTrigger>
+          <PopoverContent className="p-0" align="center">
+            <ItemList
+              options={options}
+              selectedItem={item}
+              setOpen={setOpen}
+              onItemChange={onItemChange}
+              placeholder={placeholder}
+              emptyText={emptyText}
+              disabled={disabled}
+            />
+          </PopoverContent>
+        </Popover>
+      ) : (
+        <Drawer open={open} onOpenChange={setOpen}>
+          <DrawerTrigger asChild>{triggerButton}</DrawerTrigger>
+          <DrawerContent>
+            <div className="mt-4 border-t">{itemList}</div>
+          </DrawerContent>
+        </Drawer>
+      )}
+    </WithClearButton>
   )
 }
 
@@ -94,6 +105,7 @@ interface ItemListProps {
   onItemChange: (item: Item | null) => void
   placeholder?: string
   emptyText?: string
+  disabled?: boolean
 }
 
 function ItemList({
@@ -103,18 +115,20 @@ function ItemList({
   onItemChange,
   placeholder,
   emptyText,
+  disabled = false,
 }: ItemListProps) {
   return (
     <Command>
-      <CommandInput placeholder={placeholder} />
+      <CommandInput placeholder={placeholder} disabled={disabled} />
       <CommandList>
         <CommandEmpty>{emptyText}</CommandEmpty>
         <CommandGroup>
           {options.map((currItem) => (
             <CommandItem
               key={currItem.value}
-              value={currItem.value}
+              value={currItem.label}
               onSelect={() => {
+                if (disabled) return
                 if (selectedItem?.value === currItem.value) {
                   onItemChange(null)
                 } else {

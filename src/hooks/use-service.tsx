@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Service } from '@/models/basic'
 
 export function useService<T>(service: Service<T>, immediate = true) {
@@ -15,17 +15,20 @@ export function useService<T>(service: Service<T>, immediate = true) {
       return result
     } catch (err) {
       setError(err as Error)
-      throw err
     } finally {
       setLoading(false)
     }
   }, [service])
 
+  // This ref tracks whether the initial fetch has been called.
+  const fetchedRef = useRef(false)
+
   useEffect(() => {
-    if (immediate) {
+    if (immediate && !fetchedRef.current) {
+      fetchedRef.current = true
       fetchData()
     }
-  }, [fetchData, immediate])
+  }, [immediate, fetchData])
 
   return { data, loading, error, refetch: fetchData }
 }

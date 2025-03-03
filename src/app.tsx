@@ -8,20 +8,23 @@ import { useTranslation } from 'react-i18next'
 import { OptionService } from '@/services/option'
 import { CreditCardService } from '@/services/credit-card'
 import { useService } from '@/hooks/use-service'
+import { useLocalStorage } from '@/hooks/use-local-storage'
 
 function App() {
   const optionService = new OptionService()
   const creditCardService = new CreditCardService()
 
   const { t } = useTranslation()
-  const { data: filterOptions } = useService<FilterOptions>(optionService)
+  const { data: filterOptions, loading: optionsLoading } = useService<FilterOptions>(optionService)
   const { data: cardList } = useService<ResultCardProps[]>(creditCardService)
 
   const [showWarning, setShowWarning] = useState(true) // TODO: Use local storage to persist this state
+  const [selectedTab, setSelectedTab] = useLocalStorage<string>('selectedTab', 'local')
   const [filterValue, setFilterValue] = useState<FilterValue>({
     category: optionService.getDefaultData().categories[0],
     shop: null,
     location: null,
+    currency: 'local',
     amount: 0,
   })
 
@@ -37,7 +40,7 @@ function App() {
           </button>
         </Alert>
       )}
-      <Tabs defaultValue="local" className="w-full">
+      <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
         <TabsContent className="space-y-2" value="online">
           <ResultCardList results={cardList} />
           <FilterCard
@@ -45,6 +48,7 @@ function App() {
             options={filterOptions}
             value={filterValue}
             setValue={setFilterValue}
+            loading={optionsLoading}
           />
         </TabsContent>
         <TabsContent className="space-y-2" value="local">
@@ -54,6 +58,7 @@ function App() {
             options={filterOptions}
             value={filterValue}
             setValue={setFilterValue}
+            loading={optionsLoading}
           />
         </TabsContent>
         <TabsContent className="space-y-2" value="overseas">
@@ -63,6 +68,7 @@ function App() {
             options={filterOptions}
             value={filterValue}
             setValue={setFilterValue}
+            loading={optionsLoading}
           />
         </TabsContent>
         <br />
