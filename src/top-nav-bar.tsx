@@ -1,7 +1,8 @@
-import { Button } from '@/components/ui/button'
 import { Github, Settings } from 'lucide-react'
-import { useTheme } from './components/theme-provider'
 import { useTranslation } from 'react-i18next'
+
+import { useTheme } from '@/components/theme-provider'
+import { Button } from '@/components/ui/button'
 
 function TopNavBar() {
   const { t, i18n } = useTranslation()

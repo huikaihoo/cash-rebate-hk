@@ -1,6 +1,6 @@
-import { Badge } from '@/components/ui/badge'
 import { CreditCard } from '@/components/image/credit-card'
-import { Skeleton } from '../ui/skeleton'
+import { Badge } from '@/components/ui/badge'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export interface ResultCardProps {
   title: string

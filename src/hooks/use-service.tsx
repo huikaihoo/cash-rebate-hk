@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+
 import { Service } from '@/models/basic'
 
 export function useService<T>(service: Service<T>, immediate = true) {

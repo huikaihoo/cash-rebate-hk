@@ -1,12 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { I18nextProvider } from 'react-i18next'
+
 import App from '@/app.tsx'
 import '@/index.css'
-import TopNavBar from './top-nav-bar.tsx'
-import { ThemeProvider } from '@/components/theme-provider.tsx'
-import { I18nextProvider } from 'react-i18next'
-import i18n from '@/lib/i18n'
 import { PageTitle } from '@/components/page-title'
+import { ThemeProvider } from '@/components/theme-provider.tsx'
+import i18n from '@/lib/i18n'
+import TopNavBar from '@/top-nav-bar'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

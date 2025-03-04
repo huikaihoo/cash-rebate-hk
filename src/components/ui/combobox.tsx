@@ -1,9 +1,8 @@
 'use client'
 
-import * as React from 'react'
-import { cn } from '@/lib/utils'
-import { useMediaQuery } from '@/hooks/use-media-query'
 import { Check, ChevronsUpDown } from 'lucide-react'
+import * as React from 'react'
+
 import { Button } from '@/components/ui/button'
 import {
   Command,
@@ -15,8 +14,10 @@ import {
 } from '@/components/ui/command'
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { WithClearButton } from '@/components/ui/with-clear-button'
+import { useMediaQuery } from '@/hooks/use-media-query'
+import { cn } from '@/lib/utils'
 import { Item } from '@/models/basic'
-import { WithClearButton } from './with-clear-button'
 
 interface ComboboxResponsiveProps {
   options: Item[]
@@ -75,15 +76,7 @@ export function ComboboxResponsive({
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>{triggerButton}</PopoverTrigger>
           <PopoverContent className="p-0" align="center">
-            <ItemList
-              options={options}
-              selectedItem={item}
-              setOpen={setOpen}
-              onItemChange={onItemChange}
-              placeholder={placeholder}
-              emptyText={emptyText}
-              disabled={disabled}
-            />
+            {itemList}
           </PopoverContent>
         </Popover>
       ) : (

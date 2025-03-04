@@ -1,6 +1,18 @@
 'use client'
 
+import { ListFilter, X } from 'lucide-react'
 import * as React from 'react'
+import { Trans, useTranslation } from 'react-i18next'
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+import { Button } from '@/components/ui/button'
+import { ComboboxResponsive } from '@/components/ui/combobox'
+import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
   Select,
@@ -9,19 +21,8 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select'
-import { ComboboxResponsive } from '@/components/ui/combobox'
-import { Input } from '@/components/ui/input'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
-import { ListFilter, X } from 'lucide-react'
 import { useLocalStorage } from '@/hooks/use-local-storage'
 import { Item } from '@/models/basic'
-import { Trans, useTranslation } from 'react-i18next'
-import { Button } from '../ui/button'
 
 export interface FilterValue {
   category: Item | null
