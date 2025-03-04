@@ -1,6 +1,7 @@
-import { Github, Settings } from 'lucide-react'
+import { Settings } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
+import { Github } from '@/components/svg/github'
 import { useTheme } from '@/components/theme-provider'
 import { Button } from '@/components/ui/button'
 

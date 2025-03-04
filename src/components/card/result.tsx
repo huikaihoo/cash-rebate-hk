@@ -1,4 +1,4 @@
-import { CreditCard } from '@/components/image/credit-card'
+import { CreditCard } from '@/components/svg/credit-card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 

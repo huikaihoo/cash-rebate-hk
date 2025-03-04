@@ -1,13 +1,18 @@
-export function CreditCard({ className }: React.HTMLAttributes<HTMLDivElement>) {
+import { SvgProps } from '@/components/props'
+import { cn } from '@/lib/utils'
+
+export function CreditCard({ className, ...props }: SvgProps) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
+      role="button"
       viewBox="0 0 96 60"
+      xmlns="http://www.w3.org/2000/svg"
       fill="none"
       stroke="currentColor"
       strokeWidth="3"
       strokeLinejoin="round"
-      className={`text-gray-400 flex-shrink-0 ${className || ''}`}
+      className={cn('text-gray-400 flex-shrink-0', className)}
+      {...props}
     >
       <rect width="90" height="56" x="3" y="2" rx="4" />
       <line x1="3" x2="93" y1="18" y2="18" strokeWidth="10" />
