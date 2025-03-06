@@ -4,6 +4,16 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Noto Sans', 'Noto Sans HK', 'Noto Color Emoji', 'sans-serif'],
+        condensed: [
+          'noto-sans-condensed',
+          'Noto Sans',
+          'Noto Sans HK',
+          'Noto Color Emoji',
+          'sans-serif',
+        ],
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',

@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 export function CreditCard({ className, ...props }: SvgProps) {
   return (
     <svg
-      role="button"
+      role="img"
       viewBox="0 0 96 60"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"

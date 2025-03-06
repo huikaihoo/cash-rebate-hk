@@ -53,7 +53,7 @@ export function FilterCard({ type, value, options, loading, setValue }: FilterCo
 
   return (
     <Accordion
-      className="rounded-md border px-4 py-3 space-y-1"
+      className="rounded-md border px-4 space-y-1"
       type="single"
       collapsible
       value={accordionState ?? undefined}

@@ -28,14 +28,22 @@ export default defineConfig(({ mode }) => {
           start_url: basePath,
           icons: [
             {
-              src: 'vite.svg',
-              sizes: '192x192',
-              type: 'image/svg',
+              src: 'icon.svg',
+              sizes: 'any',
+              type: 'image/svg+xml',
+              purpose: 'any',
             },
             {
-              src: 'vite.svg',
-              sizes: '512x512',
-              type: 'image/svg',
+              src: 'icon_mask.svg',
+              sizes: 'any',
+              type: 'image/svg+xml',
+              purpose: 'maskable',
+            },
+            {
+              src: 'icon_mono.svg',
+              sizes: 'any',
+              type: 'image/svg+xml',
+              purpose: 'monochrome',
             },
           ],
         },

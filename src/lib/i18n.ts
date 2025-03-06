@@ -23,8 +23,8 @@ const resources = {
         location: 'Location',
         amount: 'Amount',
         currency: {
-          local: 'Settlement in local currency (HKD)',
-          foreign: 'Settlement in foreign currency',
+          local: '🇭🇰 Settlement in local currency (HKD)',
+          foreign: '🌏 Settlement in foreign currency',
         },
         placeholder: {
           shop: 'Search for shop ...',
@@ -69,8 +69,8 @@ const resources = {
         location: '地點',
         amount: '金額',
         currency: {
-          local: '使用港幣結算',
-          foreign: '使用外幣結算',
+          local: '🇭🇰 使用港幣結算',
+          foreign: '🌏 使用外幣結算',
         },
         placeholder: {
           shop: '搜尋商店 ...',

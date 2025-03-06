@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFC107;stop-opacity:1" />
+      <stop offset="20%" style="stop-color:#FFC107;stop-opacity:1" />
+      <stop offset="80%" style="stop-color:#03A9F4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#03A9F4;stop-opacity:1" />
+    </linearGradient>
+    <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="0" refY="1.5" orient="auto">
+      <path d="M0,0 L0,3 L3,1.5 z" fill="#FFF"/>
+    </marker>
+  </defs>
+  <!-- <circle cx="50" cy="50" r="50" fill="url(#grad)" /> -->
+  <rect width="100" height="100" fill="url(#grad)" />
+  <svg x="20" y="34" width="54" height="54" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path fill="#FFF" stroke="none" d="M22 15V16L14 18.5L7 16.6V18H1V7H9L15.2 9.3C16.2 9.7 17 10.8 17 12H19C20.7 12 22 13.3 22 15M5 16V9H3V16H5M19.9 14.6C19.7 14.2 19.4 14 19 14H13.6C13.1 14 12.5 13.9 12 13.8L9.7 13L10.3 11.1L12.7 11.9C13 11.9 15 12 15 12C15 11.6 14.8 11.3 14.4 11.2L8.6 9H7V14.5L14 16.4L19.9 14.6Z" />
+  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" x="22" y="6" width="70" height="70" viewBox="0 0 200 200">
+    <svg x="60" y="60" width="80" height="80" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#FFF" d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z"/>
+    </svg>
+    <!-- This path starts at (50,100) and draws an arc to (150,100) with a radius of 50 -->
+    <!-- Format: M (move to) followed by A (arc to) -->
+    <path d="M50,100 A50,50 0 1 1 148.3,112.94" fill="none" stroke="#FFF" stroke-width="12" marker-end="url(#arrowhead)"/>
+  </svg>
+</svg>

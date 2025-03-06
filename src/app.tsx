@@ -34,7 +34,7 @@ function App() {
       {showWarning && (
         <Alert variant="destructive">
           <TriangleAlert className="h-4 w-4" />
-          <AlertTitle>{t('disclaimer.title')}</AlertTitle>
+          <AlertTitle className="font-semibold">{t('disclaimer.title')}</AlertTitle>
           <AlertDescription className="text-xs">{t('disclaimer.content')}</AlertDescription>
           <button className="absolute top-2.5 right-2.5" onClick={() => setShowWarning(false)}>
             <X className="h-4 w-4 shrink-0" />

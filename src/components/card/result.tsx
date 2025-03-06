@@ -22,7 +22,7 @@ export function ResultCard({ imageUrl, title, badges, details }: ResultCardProps
           <CreditCard className="w-[96px] h-[60px] object-cover aspect-[1.6]" />
         )}
         <div className="flex flex-col space-y-2">
-          <div className="font-semibold">{title}</div>
+          <div className="font-condensed font-semibold">{title}</div>
           <div className="flex h-5 items-center space-x-2">
             {badges.map((badge, index) => (
               <Badge key={index} variant={badge.variant}>
