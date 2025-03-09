@@ -1,5 +1,7 @@
+import { useLiveQuery } from 'dexie-react-hooks'
+import _ from 'lodash'
 import { TriangleAlert, X } from 'lucide-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { FilterCard, FilterOptions, FilterValue } from '@/components/card/filter'
@@ -8,8 +10,15 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useLocalStorage } from '@/hooks/use-local-storage'
 import { useService } from '@/hooks/use-service'
-import { CreditCardService } from '@/services/credit-card'
-import { OptionService } from '@/services/option'
+import { coreDb, joinTables } from '@/lib/db'
+import {
+  filterRebate,
+  filterToChannel,
+  rebateToResultCardProps,
+} from '@/services/credit-card/logic'
+import { RebateWithCard } from '@/services/credit-card/model'
+import { CreditCardService } from '@/services/credit-card/service'
+import { OptionService } from '@/services/option/service'
 
 function App() {
   const optionService = new OptionService()
@@ -17,17 +26,44 @@ function App() {
 
   const { t } = useTranslation()
   const { data: filterOptions, loading: optionsLoading } = useService<FilterOptions>(optionService)
-  const { data: cardList } = useService<ResultCardProps[]>(creditCardService)
+  useService<ResultCardProps[]>(creditCardService)
 
   const [showWarning, setShowWarning] = useState(true) // TODO: Use local storage to persist this state
   const [selectedTab, setSelectedTab] = useLocalStorage<string>('selectedTab', 'local')
-  const [filterValue, setFilterValue] = useState<FilterValue>({
+  const [filterValue, setFilterValue] = useLocalStorage<FilterValue>('filterValue', {
     category: optionService.getDefaultData().categories[0],
     shop: null,
     location: null,
     currency: 'local',
     amount: 0,
   })
+
+  const rebateList = useLiveQuery(async () => {
+    const channel = filterToChannel(selectedTab, filterValue.currency)
+
+    return await coreDb.creditCardTrx('r', async () => {
+      const rebateList = await coreDb.rebates
+        .where('channels')
+        .equals(channel)
+        .reverse()
+        .sortBy('percentage')
+
+      return await joinTables(
+        rebateList,
+        [{ target: coreDb.creditCards, getKey: (rebate) => rebate.cardId }],
+        (targets, rebate) => ({ ...rebate, card: targets[0] }) as RebateWithCard,
+      )
+    })
+  }, [selectedTab, filterValue.currency])
+
+  const results = useMemo(() => {
+    if (!rebateList) return []
+    return _.chain(rebateList)
+      .filter((rebate) => filterRebate(rebate, filterValue, selectedTab))
+      .uniqBy('cardId')
+      .map((rebate) => rebateToResultCardProps(rebate, selectedTab, filterValue, t))
+      .value()
+  }, [t, selectedTab, filterValue, rebateList])
 
   return (
     <div className="max-w-[840px] mx-auto p-4">
@@ -42,38 +78,44 @@ function App() {
         </Alert>
       )}
       <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-        <TabsContent className="space-y-2" value="online">
-          <ResultCardList results={cardList} />
+        <TabsContent className="space-y-4" value="online">
+          <ResultCardList results={results} />
           <FilterCard
             type="online"
+            // className="bg-color-orange"
+            // labelClassName="text-destructive-foreground"
             options={filterOptions}
             value={filterValue}
             setValue={setFilterValue}
             loading={optionsLoading}
           />
         </TabsContent>
-        <TabsContent className="space-y-2" value="local">
-          <ResultCardList results={cardList} />
+        <TabsContent className="space-y-4" value="local">
+          <ResultCardList results={results} />
           <FilterCard
             type="local"
+            // className="bg-color-green"
+            // labelClassName="text-destructive-foreground"
             options={filterOptions}
             value={filterValue}
             setValue={setFilterValue}
             loading={optionsLoading}
           />
         </TabsContent>
-        <TabsContent className="space-y-2" value="overseas">
-          <ResultCardList results={cardList} />
+        <TabsContent className="space-y-4" value="overseas">
+          <ResultCardList results={results} />
           <FilterCard
             type="overseas"
+            // className="bg-color-blue"
+            // labelClassName="text-destructive-foreground"
             options={filterOptions}
             value={filterValue}
             setValue={setFilterValue}
             loading={optionsLoading}
           />
         </TabsContent>
-        <br />
-        <TabsList className="grid w-full grid-cols-3 sticky bottom-2">
+        <div className="h-4" />
+        <TabsList className="grid w-full grid-cols-3 sticky bottom-4">
           <TabsTrigger
             className="data-[state=active]:bg-color-orange data-[state=active]:text-destructive-foreground"
             value="online"

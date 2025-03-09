@@ -1,7 +1,7 @@
 import { FilterOptions } from '@/components/card/filter'
 import api from '@/lib/api'
-import { Service } from '@/models/basic'
-import { Options } from '@/models/options'
+import { Service } from '@/lib/types'
+import { Options } from '@/services/option/options'
 
 function toTitle(text: string): string {
   return text
@@ -12,7 +12,7 @@ function toTitle(text: string): string {
 
 export class OptionService implements Service<FilterOptions> {
   getDefaultData(): FilterOptions {
-    return { categories: [{ value: 'any', label: '(Any)' }], shops: [], locations: [] }
+    return { categories: [{ value: 'general', label: '(General)' }], shops: [], locations: [] }
   }
 
   async getData(): Promise<FilterOptions> {
@@ -30,9 +30,10 @@ export class OptionService implements Service<FilterOptions> {
         ],
         shops: [
           ...defaultOptions.shops,
-          ...((data.shops as [string, string][]) || []).map(([value, label]) => ({
+          ...((data.shops as [string, string, string[]][]) || []).map(([value, label, groups]) => ({
             value,
             label,
+            groups,
           })),
         ],
         locations: [

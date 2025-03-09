@@ -11,15 +11,15 @@ import tseslint from 'typescript-eslint'
 export default tseslint.config(
   { ignores: ['*dist', 'tailwind*js'] },
   {
-    settings: {
-      react: { version: '18.3' },
-      'import/resolver': { typescript: true },
-    },
     extends: [js.configs.recommended, ...tseslint.configs.recommended, prettierConfig],
     files: ['**/*.{js,ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+    },
+    settings: {
+      react: { version: '18.3' },
+      'import/resolver': { typescript: true },
     },
     plugins: {
       react,

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 
-import { Service } from '@/models/basic'
+import { Service } from '@/lib/types'
 
 export function useService<T>(service: Service<T>, immediate = true) {
   const [data, setData] = useState<T>(() => service.getDefaultData())

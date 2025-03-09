@@ -1,4 +1,4 @@
-import { SvgProps } from '@/components/props'
+import { SvgProps } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 export function Github({ className, ...props }: SvgProps) {

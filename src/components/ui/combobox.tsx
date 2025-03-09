@@ -16,8 +16,8 @@ import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { WithClearButton } from '@/components/ui/with-clear-button'
 import { useMediaQuery } from '@/hooks/use-media-query'
+import { Item } from '@/lib/types'
 import { cn } from '@/lib/utils'
-import { Item } from '@/models/basic'
 
 interface ComboboxResponsiveProps {
   options: Item[]

@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
 
   const enableHttps = env.VITE_ENABLE_HTTPS === 'true'
-  const basePath = env.VITE_BASE_PATH || '/'
+  const basePath = env.VITE_BASE_URL || '/'
 
   return {
     base: basePath,

@@ -22,7 +22,8 @@ import {
   SelectItem,
 } from '@/components/ui/select'
 import { useLocalStorage } from '@/hooks/use-local-storage'
-import { Item } from '@/models/basic'
+import { Item } from '@/lib/types'
+import { cn } from '@/lib/utils'
 
 export interface FilterValue {
   category: Item | null
@@ -44,24 +45,34 @@ export interface FilterContentProps {
   value: FilterValue
   setValue: React.Dispatch<React.SetStateAction<FilterValue>>
   loading: boolean
+  className?: string
+  labelClassName?: string
 }
 
-export function FilterCard({ type, value, options, loading, setValue }: FilterContentProps) {
+export function FilterCard({
+  type,
+  options,
+  value,
+  setValue,
+  loading,
+  className,
+  labelClassName,
+}: FilterContentProps) {
   const { t } = useTranslation()
   const [accordionState, setAccordionState] = useLocalStorage('filterAccordionState', 'filter')
   const { shops, categories, locations } = options
 
   return (
     <Accordion
-      className="rounded-md border px-4 space-y-1"
+      className={cn('rounded-md border px-4 bg-accent sticky bottom-[70px]', className)}
       type="single"
       collapsible
       value={accordionState ?? undefined}
       onValueChange={(newState) => setAccordionState(newState)}
     >
       <AccordionItem value="filter">
-        <AccordionTrigger>
-          <div className="flex items-center space-x-4">
+        <AccordionTrigger className={labelClassName}>
+          <div className="flex items-center space-x-4 ">
             <ListFilter /> <span>{t('filter.title')}</span>
           </div>
         </AccordionTrigger>
@@ -69,7 +80,9 @@ export function FilterCard({ type, value, options, loading, setValue }: FilterCo
           <div className="grid w-full items-center gap-4 pt-4 px-2">
             {/* Shop Category */}
             <div className="flex flex-col space-y-2">
-              <Label htmlFor="category">{t('filter.category')}</Label>
+              <Label className={labelClassName} htmlFor="category">
+                {t('filter.category')}
+              </Label>
               <Select
                 value={value.category?.value || ''}
                 onValueChange={(newValue) => {
@@ -103,7 +116,9 @@ export function FilterCard({ type, value, options, loading, setValue }: FilterCo
             {/* Conditionally render Shop Name or Location */}
             {type === 'overseas' ? (
               <div className="flex flex-col space-y-2">
-                <Label htmlFor="location">{t('filter.location')}</Label>
+                <Label className={labelClassName} htmlFor="location">
+                  {t('filter.location')}
+                </Label>
                 <ComboboxResponsive
                   options={locations}
                   placeholder={t('filter.placeholder.location')}
@@ -115,15 +130,17 @@ export function FilterCard({ type, value, options, loading, setValue }: FilterCo
               </div>
             ) : (
               <div className="flex flex-col space-y-2">
-                <Label htmlFor="name">{t('filter.shop')}</Label>
+                <Label className={labelClassName} htmlFor="name">
+                  {t('filter.shop')}
+                </Label>
                 <ComboboxResponsive
                   options={shops}
                   placeholder={t('filter.placeholder.shop')}
                   emptyText={t('filter.emptyText.shop')}
                   item={value.shop}
                   onItemChange={(newItem) => {
-                    if (newItem && newItem.value.includes('.')) {
-                      const shopCategory = newItem.value.split('.')[0]
+                    if (newItem && newItem.groups?.length) {
+                      const shopCategory = newItem.groups[0]
                       const shopCategoryItem =
                         categories.find((cat) => cat.value === shopCategory) ?? categories[0]
                       setValue((prev) => ({ ...prev, shop: newItem, category: shopCategoryItem }))
@@ -138,7 +155,9 @@ export function FilterCard({ type, value, options, loading, setValue }: FilterCo
 
             {/* Amount */}
             <div className="flex flex-col space-y-2">
-              <Label htmlFor="amount">{t('filter.amount')}</Label>
+              <Label className={labelClassName} htmlFor="amount">
+                {t('filter.amount')}
+              </Label>
               <Select
                 value={value.currency}
                 onValueChange={(newCurrency) =>
@@ -179,7 +198,7 @@ export function FilterCard({ type, value, options, loading, setValue }: FilterCo
                     min={0}
                     step={10}
                     maxLength={5}
-                    className="text-right pl-12 pr-9"
+                    className="text-right pl-12 pr-9 bg-background"
                     onChange={(e) =>
                       setValue((prev) => ({
                         ...prev,

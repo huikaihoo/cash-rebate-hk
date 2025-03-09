@@ -1,15 +1,19 @@
 import axios from 'axios'
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL
-const url = new URL('/data/', baseUrl).href
+const DataUrl = new URL('/data/', import.meta.env.VITE_API_BASE_URL).href
+const ImageUrl = new URL('/images/', import.meta.env.VITE_API_BASE_URL).href
 
-console.log('BASE_URL', import.meta.env.BASE_URL)
-console.log('VITE_BASE_PATH', import.meta.env.VITE_BASE_PATH)
-console.log('VITE_API_BASE_URL', import.meta.env.VITE_API_BASE_URL)
-console.log('baseUrl', baseUrl)
+console.log('VITE_BASE_URL', import.meta.env.VITE_BASE_URL)
+console.log('VITE_API_URL', import.meta.env.VITE_API_URL)
+console.log('DataUrl', DataUrl)
+console.log('ImageUrl', ImageUrl)
+
+export function imageUrl(image: string): string {
+  return new URL(image, ImageUrl).href + '.webp'
+}
 
 const api = axios.create({
-  baseURL: url,
+  baseURL: DataUrl,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

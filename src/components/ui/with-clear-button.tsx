@@ -26,7 +26,7 @@ export function WithClearButton({
   containerClassName,
 }: WithClearButtonProps) {
   return (
-    <div className={cn('flex items-center rounded-md border', containerClassName)}>
+    <div className={cn('flex items-center rounded-md border bg-background', containerClassName)}>
       <div className={cn('flex-1', className)}>{children}</div>
       {showClearButton && (
         <Button

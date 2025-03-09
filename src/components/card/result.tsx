@@ -2,19 +2,30 @@ import { CreditCard } from '@/components/svg/credit-card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 
+export interface ResultCardBagdeProps {
+  variant?:
+    | 'default'
+    | 'secondary'
+    | 'destructive'
+    | 'warning'
+    | 'online'
+    | 'local'
+    | 'overseas'
+    | 'outline'
+  children: React.ReactNode
+}
+
 export interface ResultCardProps {
   title: string
   imageUrl: string
-  badges: {
-    variant: 'default' | 'secondary' | 'destructive' | 'online' | 'local' | 'overseas' | 'outline'
-    text: string
-  }[]
-  details: string[]
+  percentages: ResultCardBagdeProps[]
+  details: ResultCardBagdeProps[]
+  remarks?: string
 }
 
-export function ResultCard({ imageUrl, title, badges, details }: ResultCardProps) {
+export function ResultCard({ imageUrl, title, percentages, details, remarks }: ResultCardProps) {
   return (
-    <div className="rounded-md border px-4 py-4 flex flex-col space-y-4">
+    <div className="rounded-md border px-2 py-2 flex flex-col space-y-4 bg-card">
       <div className="flex items-center space-x-4">
         {imageUrl ? (
           <img className="w-[96px] h-[60px] object-cover aspect-[1.6]" src={imageUrl} alt={title} />
@@ -24,9 +35,9 @@ export function ResultCard({ imageUrl, title, badges, details }: ResultCardProps
         <div className="flex flex-col space-y-2">
           <div className="font-condensed font-semibold">{title}</div>
           <div className="flex h-5 items-center space-x-2">
-            {badges.map((badge, index) => (
-              <Badge key={index} variant={badge.variant}>
-                {badge.text}
+            {percentages.map((percentage, index) => (
+              <Badge key={index} variant={percentage.variant ?? 'secondary'}>
+                {percentage.children}
               </Badge>
             ))}
           </div>
@@ -34,18 +45,19 @@ export function ResultCard({ imageUrl, title, badges, details }: ResultCardProps
       </div>
       <div className="flex flex-wrap gap-1">
         {details.map((detail, index) => (
-          <Badge key={index} variant="secondary">
-            {detail}
+          <Badge key={index} variant={detail.variant ?? 'secondary'}>
+            {detail.children}
           </Badge>
         ))}
       </div>
+      {remarks && <div className="text-sm text-stone-500">{remarks}</div>}
     </div>
   )
 }
 
 export function ResultCardEmpty() {
   return (
-    <div className="rounded-md border px-4 py-4 flex flex-col space-y-4">
+    <div className="rounded-md border px-4 py-4 flex flex-col space-y-4 bg-card">
       <div className="flex items-center space-x-4">
         <Skeleton className="w-[96px] h-[60px] rounded object-cover aspect-[1.6]" />
         <div className="flex flex-col space-y-2 flex-1">
@@ -67,13 +79,13 @@ export function ResultCardEmpty() {
 }
 
 interface ResultCardListProps {
-  results: ResultCardProps[]
+  results: ResultCardProps[] | undefined
 }
 
 export function ResultCardList({ results }: ResultCardListProps) {
   return (
     <div className="space-y-2">
-      {results.length === 0
+      {!results || results.length === 0
         ? Array.from({ length: 3 }).map((_, index) => <ResultCardEmpty key={index} />)
         : results.map((result, index) => <ResultCard key={index} {...result} />)}
     </div>
