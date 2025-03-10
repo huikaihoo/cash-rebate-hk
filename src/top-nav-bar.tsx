@@ -29,7 +29,11 @@ function TopNavBar() {
           </div>
         </Button>
         <Button variant="ghost" size="icon" asChild>
-          <a href="https://github.com/huikaihoo" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://github.com/huikaihoo/cash-rebate-hk"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Github />
           </a>
         </Button>

@@ -1,7 +1,7 @@
 import { FilterOptions } from '@/components/card/filter'
 import api from '@/lib/api'
 import { Service } from '@/lib/types'
-import { Options } from '@/services/option/options'
+import { Options } from '@/services/option/model'
 
 function toTitle(text: string): string {
   return text

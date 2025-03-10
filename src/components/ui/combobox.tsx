@@ -12,7 +12,14 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command'
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer'
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { WithClearButton } from '@/components/ui/with-clear-button'
 import { useMediaQuery } from '@/hooks/use-media-query'
@@ -83,6 +90,10 @@ export function ComboboxResponsive({
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>{triggerButton}</DrawerTrigger>
           <DrawerContent>
+            <DrawerHeader className="sr-only">
+              <DrawerTitle />
+              <DrawerDescription />
+            </DrawerHeader>
             <div className="mt-4 border-t">{itemList}</div>
           </DrawerContent>
         </Drawer>

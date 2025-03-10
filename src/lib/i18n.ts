@@ -114,7 +114,7 @@ const resources = {
       rebate: {
         min: '最少',
         max: '上限',
-        unlimited: '無上限',
+        unlimited: '無限額',
         start: '開始',
         end: '直至',
         period: {

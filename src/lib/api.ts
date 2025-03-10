@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const DataUrl = new URL('/data/', import.meta.env.VITE_API_BASE_URL).href
-const ImageUrl = new URL('/images/', import.meta.env.VITE_API_BASE_URL).href
+const DataUrl = new URL('data/', import.meta.env.VITE_API_URL).href
+const ImageUrl = new URL('images/', import.meta.env.VITE_API_URL).href
 
 console.log('VITE_BASE_URL', import.meta.env.VITE_BASE_URL)
 console.log('VITE_API_URL', import.meta.env.VITE_API_URL)

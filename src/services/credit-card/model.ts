@@ -72,11 +72,3 @@ export interface Rebate {
 export interface RebateWithCard extends Rebate {
   card: CreditCard
 }
-
-export interface RebateIndex {
-  channel: Channel
-  rebateId: string
-  cardId: string
-  bankId: string
-  sequence: number // smaller number means higher percentage
-}
