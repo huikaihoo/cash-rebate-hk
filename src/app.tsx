@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useLocalStorage } from '@/hooks/use-local-storage'
 import { useService } from '@/hooks/use-service'
 import { coreDb, joinTables } from '@/lib/db'
+import i18n from '@/lib/i18n'
 import {
   filterRebate,
   filterToChannel,
@@ -66,7 +67,7 @@ function App() {
   }, [t, selectedTab, filterValue, rebateList])
 
   return (
-    <div className="max-w-[840px] mx-auto p-4">
+    <div className="max-w-[840px] mx-auto p-4" key={i18n.resolvedLanguage}>
       {showWarning && (
         <Alert variant="destructive">
           <TriangleAlert className="h-4 w-4" />

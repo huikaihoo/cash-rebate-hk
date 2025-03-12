@@ -5,14 +5,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Noto Sans', 'Noto Sans HK', 'Noto Color Emoji', 'sans-serif'],
-        condensed: [
-          'noto-sans-condensed',
-          'Noto Sans',
-          'Noto Sans HK',
-          'Noto Color Emoji',
-          'sans-serif',
-        ],
+        sans: ['var(--font-sans)'],
+        condensed: ['var(--font-condensed)'],
       },
       borderRadius: {
         lg: 'var(--radius)',

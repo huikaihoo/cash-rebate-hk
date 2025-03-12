@@ -3,6 +3,22 @@
 @tailwind utilities;
 
 @layer base {
+  @supports not (-webkit-hyphens: none) {
+    :root {
+      --font-sans: 'Noto Sans', 'Noto Sans HK', 'Noto Color Emoji', sans-serif;
+      --font-condensed:
+        'noto-sans-condensed', 'Noto Sans', 'Noto Sans HK', 'Noto Color Emoji', sans-serif;
+    }
+  }
+
+  /* WebKit-specific font definitions */
+  @supports (-webkit-hyphens: none) {
+    :root {
+      --font-sans: 'Noto Sans', 'Noto Sans HK', sans-serif;
+      --font-condensed: 'noto-sans-condensed', 'Noto Sans', 'Noto Sans HK', sans-serif;
+    }
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
