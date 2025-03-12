@@ -16,7 +16,7 @@ function TopNavBar() {
 
   return (
     <div className="sticky top-0 z-50 bg-primary shadow-md flex items-center justify-between px-2 x:px-40 py-2 border-b">
-      <a href="/" className="flex items-center no-underline">
+      <a href={import.meta.env.BASE_URL} className="flex items-center no-underline">
         <img src="icon_mono.svg" alt="logo" className="h-8 w-8 dark:invert" />
         <span className="font-condensed font-bold text-lg truncate">{t('title')}</span>
         &nbsp;<sup className="align-top text-base">🇭🇰</sup>

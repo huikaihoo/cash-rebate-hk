@@ -15,8 +15,8 @@ export class CreditCardService implements Service<ResultCardProps[]> {
         api.get<CreditCard[]>('/credit-cards.json'),
         api.get<Rebate[]>('/rebates.json'),
       ])
-      console.log(cards)
-      console.log(rebates)
+      console.log('cards', cards)
+      console.log('rebates', rebates)
 
       await coreDb.creditCardTrx('rw', async () => {
         resetTable(coreDb.creditCards, cards)

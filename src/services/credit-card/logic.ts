@@ -54,7 +54,6 @@ export function filterRebate(
   // Location filtering (for overseas)
   if (selectedTab === 'overseas') {
     const locationValue = location?.value || ''
-    console.log('locationValue:', locationValue, rebate.locationExclude)
 
     // Skip if the rebate excludes this location
     if (rebate.locationExclude?.includes(locationValue)) {
