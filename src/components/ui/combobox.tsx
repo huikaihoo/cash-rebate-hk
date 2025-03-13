@@ -1,7 +1,7 @@
 'use client'
 
 import { Check, ChevronsUpDown } from 'lucide-react'
-import * as React from 'react'
+import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -44,7 +44,7 @@ export function ComboboxResponsive({
   disabled = false,
 }: ComboboxResponsiveProps) {
   const isDesktop = !useMediaQuery('(max-width: 768px),(hover:none),(pointer:coarse)')
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   const triggerButton = (
     <Button
