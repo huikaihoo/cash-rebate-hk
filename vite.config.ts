@@ -3,6 +3,9 @@ import path from 'path'
 import { defineConfig, loadEnv } from 'vite'
 import mkcert from 'vite-plugin-mkcert'
 import { VitePWA } from 'vite-plugin-pwa'
+import removeConsole from 'vite-plugin-remove-console'
+
+import manualChunks from './chunks'
 
 export default defineConfig(({ mode }) => {
   // Load environment variables based on the current mode
@@ -15,6 +18,7 @@ export default defineConfig(({ mode }) => {
     base: basePath,
     plugins: [
       react(),
+      removeConsole(),
       enableHttps && mkcert(),
       VitePWA({
         registerType: 'autoUpdate',
@@ -56,6 +60,13 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
+      },
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks,
+        },
       },
     },
   }

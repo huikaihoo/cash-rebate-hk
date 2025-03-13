@@ -1,7 +1,7 @@
-import { ResultCardProps } from '@/components/card/result'
 import api from '@/lib/api'
 import { coreDb, resetTable } from '@/lib/db'
 import { Service } from '@/lib/types'
+import { ResultCardProps } from '@/pages/home/result'
 import { CreditCard, Rebate } from '@/services/credit-card/model'
 
 export class CreditCardService implements Service<ResultCardProps[]> {

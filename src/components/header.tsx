@@ -5,7 +5,7 @@ import { Github } from '@/components/svg/github'
 import { useTheme } from '@/components/theme-provider'
 import { Button } from '@/components/ui/button'
 
-function TopNavBar() {
+function Header() {
   const { t, i18n } = useTranslation()
   const { theme, setTheme } = useTheme()
 
@@ -49,4 +49,4 @@ function TopNavBar() {
   )
 }
 
-export default TopNavBar
+export default Header

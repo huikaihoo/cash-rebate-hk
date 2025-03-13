@@ -1,10 +1,10 @@
 import { TFunction } from 'i18next'
 import _ from 'lodash'
 
-import { FilterValue } from '@/components/card/filter'
-import { ResultCardBagdeProps, ResultCardProps } from '@/components/card/result'
 import { imageUrl } from '@/lib/api'
 import { fromEnum } from '@/lib/enum'
+import { FilterValue } from '@/pages/home/filter'
+import { ResultCardBagdeProps, ResultCardProps } from '@/pages/home/result'
 import { Channel, Period, Rebate, RebateWithCard } from '@/services/credit-card/model'
 
 export function filterToChannel(selectedTab: string, currency: string): Channel {
