@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useLocalStorage } from '@/hooks/use-local-storage'
+import { useMediaQuery } from '@/hooks/use-media-query'
 import { useService } from '@/hooks/use-service'
 import { coreDb, joinTables } from '@/lib/db'
 import i18n from '@/lib/i18n'
@@ -26,6 +27,7 @@ function HomePage() {
   const creditCardService = new CreditCardService()
 
   const { t } = useTranslation()
+  const isWideScreen = !useMediaQuery('(max-width: 768px)')
   const { data: filterOptions, loading: optionsLoading } = useService<FilterOptions>(optionService)
   useService<ResultCardProps[]>(creditCardService)
 
@@ -67,7 +69,7 @@ function HomePage() {
   }, [t, selectedTab, filterValue, rebateList])
 
   return (
-    <div className="max-w-[840px] mx-auto p-4" key={i18n.resolvedLanguage}>
+    <div className="max-w-[840px] mx-auto p-2" key={i18n.resolvedLanguage}>
       {showWarning && (
         <Alert variant="destructive">
           <TriangleAlert className="h-4 w-4" />
@@ -116,7 +118,7 @@ function HomePage() {
           />
         </TabsContent>
         <div className="h-4" />
-        <TabsList className="grid w-full grid-cols-3 sticky bottom-4">
+        <TabsList className="grid w-full grid-cols-3 fixed bottom-4 max-w-[calc(min(100%-1rem,824px))] z-10">
           <TabsTrigger
             className="data-[state=active]:bg-color-orange data-[state=active]:text-destructive-foreground"
             value="online"
@@ -136,7 +138,9 @@ function HomePage() {
             {t('type.overseas')}
           </TabsTrigger>
         </TabsList>
+        <div className={isWideScreen ? 'h-10' : 'h-32'} />
       </Tabs>
+      <div className="fixed bg-background bottom-0 left-0 right-0 h-8 z-0 mx-auto max-w-[840px]" />
     </div>
   )
 }

@@ -64,20 +64,21 @@ export function FilterCard({
 
   return (
     <Accordion
-      className={cn('rounded-md border px-4 bg-accent sticky bottom-[70px]', className)}
+      className={cn('rounded-md border px-4 bg-accent fixed bottom-[70px] right-4', className)}
       type="single"
       collapsible
       value={accordionState ?? undefined}
       onValueChange={(newState) => setAccordionState(newState)}
     >
       <AccordionItem value="filter">
-        <AccordionTrigger className={labelClassName}>
-          <div className="flex items-center space-x-4 ">
-            <ListFilter /> <span>{t('filter.title')}</span>
+        <AccordionTrigger className={cn(labelClassName, '[&[data-state=closed]>svg]:hidden')}>
+          <div className="flex items-center space-x-4">
+            <ListFilter />
+            <span>{t('filter.title')}</span>
           </div>
         </AccordionTrigger>
         <AccordionContent>
-          <div className="grid w-full items-center gap-4 pt-4 px-2">
+          <div className="grid min-w-[340px] w-full items-center gap-4 pt-4 px-2">
             {/* Shop Category */}
             <div className="flex flex-col space-y-2">
               <Label className={labelClassName} htmlFor="category">

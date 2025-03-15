@@ -1,17 +1,12 @@
+import { type VariantProps } from 'class-variance-authority'
+
 import { CreditCard } from '@/components/svg/credit-card'
-import { Badge } from '@/components/ui/badge'
+import { Badge, badgeVariants } from '@/components/ui/badge'
+import { Image } from '@/components/ui/image'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export interface ResultCardBagdeProps {
-  variant?:
-    | 'default'
-    | 'secondary'
-    | 'destructive'
-    | 'warning'
-    | 'online'
-    | 'local'
-    | 'overseas'
-    | 'outline'
+  variant?: VariantProps<typeof badgeVariants>['variant']
   children: React.ReactNode
 }
 
@@ -27,11 +22,13 @@ export function ResultCard({ imageUrl, title, percentages, details, remarks }: R
   return (
     <div className="rounded-md border px-2 py-2 flex flex-col space-y-4 bg-card">
       <div className="flex items-center space-x-4">
-        {imageUrl ? (
-          <img className="w-[96px] h-[60px] object-cover aspect-[1.6]" src={imageUrl} alt={title} />
-        ) : (
-          <CreditCard className="w-[96px] h-[60px] object-cover aspect-[1.6]" />
-        )}
+        <Image
+          src={imageUrl}
+          alt={title}
+          className="w-[96px] h-[60px] rounded object-cover aspect-[1.6]"
+        >
+          <CreditCard />
+        </Image>
         <div className="flex flex-col space-y-2">
           <div className="font-condensed font-semibold">{title}</div>
           <div className="flex h-5 items-center space-x-2">
@@ -57,7 +54,7 @@ export function ResultCard({ imageUrl, title, percentages, details, remarks }: R
 
 export function ResultCardEmpty() {
   return (
-    <div className="rounded-md border px-4 py-4 flex flex-col space-y-4 bg-card">
+    <div className="rounded-md border px-2 py-2 flex flex-col space-y-4 bg-card">
       <div className="flex items-center space-x-4">
         <Skeleton className="w-[96px] h-[60px] rounded object-cover aspect-[1.6]" />
         <div className="flex flex-col space-y-2 flex-1">
