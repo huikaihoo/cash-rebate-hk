@@ -7,7 +7,7 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
 const Image = React.forwardRef<HTMLImageElement, ImageProps>(
-  ({ src, alt = 'image', className, children, ...props }, ref) => {
+  ({ src, alt, loading, className, children, ...props }, ref) => {
     const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
 
     useEffect(() => {
@@ -16,6 +16,13 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
         img.src = src
         img.onload = () => setStatus('success')
         img.onerror = () => setStatus('error')
+
+        // Cleanup function
+        return () => {
+          img.src = ''
+          img.onload = null
+          img.onerror = null
+        }
       } else {
         setStatus('error')
       }
@@ -24,7 +31,14 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
     return (
       <>
         {status === 'success' ? (
-          <img ref={ref} src={src} alt={alt} className={className} {...props} />
+          <img
+            src={src}
+            alt={alt}
+            loading={loading || 'lazy'}
+            ref={ref}
+            className={className}
+            {...props}
+          />
         ) : status === 'error' && children ? (
           <div className={className}>{children}</div>
         ) : (
