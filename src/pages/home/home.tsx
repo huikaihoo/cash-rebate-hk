@@ -11,25 +11,21 @@ import { useMediaQuery } from '@/hooks/use-media-query'
 import { useService } from '@/hooks/use-service'
 import { coreDb, joinTables } from '@/lib/db'
 import i18n from '@/lib/i18n'
-import { FilterCard, FilterOptions, FilterValue } from '@/pages/home/filter'
-import { ResultCardList, ResultCardProps } from '@/pages/home/result'
-import {
-  filterRebate,
-  filterToChannel,
-  rebateToResultCardProps,
-} from '@/services/credit-card/logic'
-import { RebateWithCard } from '@/services/credit-card/model'
-import { CreditCardService } from '@/services/credit-card/service'
+import { Filter, FilterOptions, FilterValue } from '@/pages/home/filter'
+import { ResultList, ResultProps } from '@/pages/home/result'
+import { filterRebate, filterToChannel, rebateToResultCardProps } from '@/services/card/logic'
+import { RebateWithCard } from '@/services/card/model'
+import { CardService } from '@/services/card/service'
 import { OptionService } from '@/services/option/service'
 
 function HomePage() {
   const optionService = new OptionService()
-  const creditCardService = new CreditCardService()
+  const cardService = new CardService()
 
   const { t } = useTranslation()
   const isWideScreen = !useMediaQuery('(max-width: 768px)')
   const { data: filterOptions, loading: optionsLoading } = useService<FilterOptions>(optionService)
-  useService<ResultCardProps[]>(creditCardService)
+  useService<ResultProps[]>(cardService)
 
   const [showWarning, setShowWarning] = useState(true) // TODO: Use local storage to persist this state
   const [selectedTab, setSelectedTab] = useLocalStorage<string>('selectedTab', 'local')
@@ -44,7 +40,7 @@ function HomePage() {
   const rebateList = useLiveQuery(async () => {
     const channel = filterToChannel(selectedTab, filterValue.currency)
 
-    return await coreDb.creditCardTrx('r', async () => {
+    return await coreDb.cardTrx('r', async () => {
       const rebateList = await coreDb.rebates
         .where('channels')
         .equals(channel)
@@ -53,7 +49,7 @@ function HomePage() {
 
       return await joinTables(
         rebateList,
-        [{ target: coreDb.creditCards, getKey: (rebate) => rebate.cardId }],
+        [{ target: coreDb.cards, getKey: (rebate) => rebate.cardId }],
         (targets, rebate) => ({ ...rebate, card: targets[0] }) as RebateWithCard,
       )
     })
@@ -82,8 +78,8 @@ function HomePage() {
       )}
       <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
         <TabsContent className="space-y-4" value="online">
-          <ResultCardList results={results} />
-          <FilterCard
+          <ResultList results={results} />
+          <Filter
             type="online"
             // className="bg-color-orange"
             // labelClassName="text-destructive-foreground"
@@ -94,8 +90,8 @@ function HomePage() {
           />
         </TabsContent>
         <TabsContent className="space-y-4" value="local">
-          <ResultCardList results={results} />
-          <FilterCard
+          <ResultList results={results} />
+          <Filter
             type="local"
             // className="bg-color-green"
             // labelClassName="text-destructive-foreground"
@@ -106,8 +102,8 @@ function HomePage() {
           />
         </TabsContent>
         <TabsContent className="space-y-4" value="overseas">
-          <ResultCardList results={results} />
-          <FilterCard
+          <ResultList results={results} />
+          <Filter
             type="overseas"
             // className="bg-color-blue"
             // labelClassName="text-destructive-foreground"

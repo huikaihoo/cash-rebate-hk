@@ -49,7 +49,7 @@ export interface FilterContentProps {
   labelClassName?: string
 }
 
-export function FilterCard({
+export function Filter({
   type,
   options,
   value,
@@ -96,7 +96,10 @@ export function FilterCard({
                   <SelectValue placeholder={t('filter.category')}>
                     <Trans
                       className="text-xs"
-                      i18nKey={`categories.${value.category?.value}`}
+                      i18nKey={[
+                        `options:categories.${value.category?.value}`,
+                        `categories.${value.category?.value}`,
+                      ]}
                       defaults={value.category?.label}
                     />
                   </SelectValue>
@@ -105,7 +108,10 @@ export function FilterCard({
                   {categories.map((categoryItem) => (
                     <SelectItem className="h-9" key={categoryItem.value} value={categoryItem.value}>
                       <Trans
-                        i18nKey={`categories.${categoryItem.value}`}
+                        i18nKey={[
+                          `options:categories.${categoryItem.value}`,
+                          `categories.${categoryItem.value}`,
+                        ]}
                         defaults={categoryItem.label}
                       />
                     </SelectItem>
@@ -170,7 +176,7 @@ export function FilterCard({
                 disabled={type !== 'online' || loading}
               >
                 <SelectTrigger className="flex w-auto items-center justify-between h-9">
-                  <SelectValue placeholder={t('filter.currency.placeholder')}>
+                  <SelectValue placeholder={t('filter.placeholder.currency')}>
                     {type === 'local'
                       ? t('filter.currency.local')
                       : type === 'overseas'

@@ -1,0 +1,103 @@
+{
+  "en": {
+    "translation": {
+      "title": "Cash Rebate Calculator",
+      "disclaimer": {
+        "title": "Disclaimer",
+        "content": "The results are for reference only. Please refer to official documents for details. No legal responsibility is assumed for any errors, omissions, or damages arising from the use, inability to use, or reliance on this information."
+      },
+      "type": {
+        "online": "Online",
+        "local": "Local",
+        "overseas": "Overseas"
+      },
+      "filter": {
+        "title": "Filter",
+        "category": "Shop Category",
+        "shop": "Shop Name",
+        "location": "Location",
+        "amount": "Amount",
+        "currency": {
+          "local": "🇭🇰 Settlement in local currency (HKD)",
+          "foreign": "🌏 Settlement in foreign currency"
+        },
+        "placeholder": {
+          "shop": "Search for shop ...",
+          "location": "Search for location ..."
+        },
+        "emptyText": {
+          "shop": "No shop found.",
+          "location": "No location found.",
+          "currency": "Select Currency"
+        }
+      },
+      "categories": {
+        "general": "(General)"
+      },
+      "rebate": {
+        "min": "Min",
+        "max": "Max",
+        "unlimited": "Unlimited",
+        "start": "From",
+        "end": "Until",
+        "period": {
+          "payment": "pay",
+          "monthly": "mo",
+          "yearly": "yr",
+          "cycle": "cyc"
+        }
+      }
+    }
+  },
+  "zh": {
+    "translation": {
+      "title": "現金回贈計算機",
+      "disclaimer": {
+        "title": "免責聲明",
+        "content": "結果僅供參考，詳情請參閱官方文件。對於任何錯誤、遺漏，或因使用、無法使用或依賴該資訊而引起的損失，概不承擔法律責任。"
+      },
+      "type": {
+        "online": "網上",
+        "local": "本地",
+        "overseas": "海外"
+      },
+      "filter": {
+        "title": "篩選",
+        "category": "商店類別",
+        "shop": "商店名稱",
+        "location": "地點",
+        "amount": "金額",
+        "currency": {
+          "local": "🇭🇰 使用港幣結算",
+          "foreign": "🌏 使用外幣結算"
+        },
+        "placeholder": {
+          "shop": "搜尋商店 ...",
+          "location": "搜尋地點 ...",
+          "currency": "選擇貨幣"
+        },
+        "emptyText": {
+          "shop": "未找到商店",
+          "location": "未找到地點",
+          "currency": "選擇貨幣"
+        }
+      },
+      "categories": {
+        "general": "(一般)"
+      },
+      "rebate": {
+        "min": "最少",
+        "max": "上限",
+        "unlimited": "無限額",
+        "start": "開始",
+        "end": "直至",
+        "period": {
+          "payment": "次",
+          "monthly": "月",
+          "yearly": "年",
+          "cycle": "週期"
+        }
+      }
+    }
+  }
+}

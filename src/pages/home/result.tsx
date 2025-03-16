@@ -1,27 +1,31 @@
 import { type VariantProps } from 'class-variance-authority'
+import { useTranslation } from 'react-i18next'
 
 import { CreditCard } from '@/components/svg/credit-card'
 import { Badge, badgeVariants } from '@/components/ui/badge'
 import { Image } from '@/components/ui/image'
 import { Skeleton } from '@/components/ui/skeleton'
 
-export interface ResultCardBagdeProps {
+export interface ResultBagdeProps {
   variant?: VariantProps<typeof badgeVariants>['variant']
   children: React.ReactNode
 }
 
-export interface ResultCardProps {
+export interface ResultProps {
+  id: string
   title: string
   imageUrl: string
-  percentages: ResultCardBagdeProps[]
-  details: ResultCardBagdeProps[]
+  percentages: ResultBagdeProps[]
+  details: ResultBagdeProps[]
   remarks?: string
 }
 
-export function ResultCard({ imageUrl, title, percentages, details, remarks }: ResultCardProps) {
+export function Result({ id, imageUrl, title, percentages, details, remarks }: ResultProps) {
+  const { t } = useTranslation()
+
   return (
-    <div className="rounded-md border px-2 py-2 flex flex-col space-y-4 bg-card">
-      <div className="flex items-center space-x-4">
+    <div className="rounded-md border px-2 py-2 flex flex-col bg-card">
+      <div className="flex items-center px-1 space-x-4">
         <Image
           src={imageUrl}
           alt={title}
@@ -40,6 +44,7 @@ export function ResultCard({ imageUrl, title, percentages, details, remarks }: R
           </div>
         </div>
       </div>
+      <div className="h-4" />
       <div className="flex flex-wrap gap-1">
         {details.map((detail, index) => (
           <Badge key={index} variant={detail.variant ?? 'secondary'}>
@@ -47,12 +52,16 @@ export function ResultCard({ imageUrl, title, percentages, details, remarks }: R
           </Badge>
         ))}
       </div>
-      {remarks && <div className="text-sm text-stone-500">{remarks}</div>}
+      {(remarks || t(`rebates:${id}.remarks`, '')) && (
+        <div className="text-sm font-condensed text-stone-500 px-2 pt-2">
+          {remarks || t(`rebates:${id}.remarks`)}
+        </div>
+      )}
     </div>
   )
 }
 
-export function ResultCardEmpty() {
+export function EmptyResult() {
   return (
     <div className="rounded-md border px-2 py-2 flex flex-col space-y-4 bg-card">
       <div className="flex items-center space-x-4">
@@ -75,16 +84,16 @@ export function ResultCardEmpty() {
   )
 }
 
-interface ResultCardListProps {
-  results: ResultCardProps[] | undefined
+interface ResultListProps {
+  results: ResultProps[] | undefined
 }
 
-export function ResultCardList({ results }: ResultCardListProps) {
+export function ResultList({ results }: ResultListProps) {
   return (
     <div className="space-y-2">
       {!results || results.length === 0
-        ? Array.from({ length: 3 }).map((_, index) => <ResultCardEmpty key={index} />)
-        : results.map((result, index) => <ResultCard key={index} {...result} />)}
+        ? Array.from({ length: 3 }).map((_, index) => <EmptyResult key={index} />)
+        : results.map((result, index) => <Result key={index} {...result} />)}
     </div>
   )
 }
