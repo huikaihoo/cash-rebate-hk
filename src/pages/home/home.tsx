@@ -30,9 +30,9 @@ function HomePage() {
   const [showWarning, setShowWarning] = useState(true) // TODO: Use local storage to persist this state
   const [selectedTab, setSelectedTab] = useLocalStorage<string>('selectedTab', 'local')
   const [filterValue, setFilterValue] = useLocalStorage<FilterValue>('filterValue', {
-    category: optionService.getDefaultData().categories[0],
-    shop: null,
-    location: null,
+    category: _.last(optionService.getDefaultData().categories),
+    shop: undefined,
+    location: undefined,
     currency: 'local',
     amount: 0,
   })

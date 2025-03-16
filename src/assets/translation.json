@@ -32,6 +32,7 @@
         }
       },
       "categories": {
+        "+general": "General",
         "general": "(General)"
       },
       "rebate": {
@@ -83,6 +84,7 @@
         }
       },
       "categories": {
+        "+general": "一般",
         "general": "(一般)"
       },
       "rebate": {

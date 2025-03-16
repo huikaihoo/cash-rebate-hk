@@ -12,7 +12,14 @@ function toTitle(text: string): string {
 
 export class OptionService implements Service<FilterOptions> {
   getDefaultData(): FilterOptions {
-    return { categories: [{ value: 'general', label: '(General)' }], shops: [], locations: [] }
+    return {
+      categories: [
+        { value: '+general', label: 'General' },
+        { value: 'general', label: '(General)' },
+      ],
+      shops: [],
+      locations: [],
+    }
   }
 
   async getData(): Promise<FilterOptions> {

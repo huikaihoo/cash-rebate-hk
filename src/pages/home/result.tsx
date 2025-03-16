@@ -53,7 +53,7 @@ export function Result({ id, imageUrl, title, percentages, details, remarks }: R
         ))}
       </div>
       {(remarks || t(`rebates:${id}.remarks`, '')) && (
-        <div className="text-sm font-condensed text-stone-500 px-2 pt-2">
+        <div className="text-sm font-condensed text-muted-foreground px-2 pt-2">
           {remarks || t(`rebates:${id}.remarks`)}
         </div>
       )}
