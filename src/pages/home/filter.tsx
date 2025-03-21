@@ -89,14 +89,14 @@ export function Filter({
               <Select
                 value={value.category?.value || ''}
                 onValueChange={(newValue) => {
-                  const newCategory = categories.find((cat) => cat.value === newValue) || null
+                  const newCategory = categories.find((cat) => cat.value === newValue) || undefined
                   setValue((prev) => {
                     const isShopInCategory =
                       prev.shop && prev.shop.groups && prev.shop.groups.includes(newValue)
                     return {
                       ...prev,
                       category: newCategory,
-                      shop: isShopInCategory ? prev.shop : null,
+                      shop: isShopInCategory ? prev.shop : undefined,
                     }
                   })
                 }}

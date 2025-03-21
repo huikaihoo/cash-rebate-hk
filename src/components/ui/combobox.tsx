@@ -30,8 +30,8 @@ interface ComboboxResponsiveProps {
   options: Item[]
   placeholder?: string
   emptyText?: string
-  item: Item | null
-  onItemChange: (item: Item | null) => void
+  item: Item | undefined
+  onItemChange: (item: Item | undefined) => void
   disabled?: boolean
 }
 
@@ -76,7 +76,7 @@ export function ComboboxResponsive({
   return (
     <WithClearButton
       onClear={() => {
-        onItemChange(null)
+        onItemChange(undefined)
         setOpen(false)
       }}
       disabled={disabled}
@@ -106,9 +106,9 @@ export function ComboboxResponsive({
 
 interface ItemListProps {
   options: Item[]
-  selectedItem: Item | null
+  selectedItem: Item | undefined
   setOpen: (open: boolean) => void
-  onItemChange: (item: Item | null) => void
+  onItemChange: (item: Item | undefined) => void
   placeholder?: string
   emptyText?: string
   disabled?: boolean
@@ -136,7 +136,7 @@ function ItemList({
               onSelect={() => {
                 if (disabled) return
                 if (selectedItem?.value === currItem.value) {
-                  onItemChange(null)
+                  onItemChange(undefined)
                 } else {
                   onItemChange(currItem)
                 }
