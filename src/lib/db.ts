@@ -1,6 +1,6 @@
 import Dexie, { PromiseExtended, Table, TransactionMode, TXWithTables } from 'dexie'
 
-import { CreditCard, Rebate } from '@/services/credit-card/model'
+import { Card, Rebate } from '@/services/card/model'
 
 const DB_VERSION_CORE = 1
 
@@ -11,24 +11,24 @@ export interface Metadata {
 }
 
 export class CoreDb extends Dexie {
-  creditCards!: Table<CreditCard>
+  cards!: Table<Card>
   rebates!: Table<Rebate>
   metadata!: Table<Metadata>
 
   constructor() {
     super('Core')
     this.version(DB_VERSION_CORE).stores({
-      creditCards: 'id, bankId',
+      cards: 'id, bankId',
       rebates: 'id, cardId, *channels',
       metadata: 'key',
     })
   }
 
-  creditCardTrx<U>(
+  cardTrx<U>(
     mode: TransactionMode,
     scope: (trans: TXWithTables<this>) => PromiseLike<U> | U,
   ): PromiseExtended<U> {
-    return this.transaction(mode, this.creditCards, this.rebates, this.metadata, scope)
+    return this.transaction(mode, this.cards, this.rebates, this.metadata, scope)
   }
 }
 

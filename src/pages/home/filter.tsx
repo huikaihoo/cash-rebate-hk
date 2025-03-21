@@ -17,6 +17,8 @@ import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectTrigger,
+  SelectGroup,
+  SelectLabel,
   SelectValue,
   SelectContent,
   SelectItem,
@@ -26,9 +28,9 @@ import { Item } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 export interface FilterValue {
-  category: Item | null
-  shop: Item | null
-  location: Item | null
+  category: Item | undefined
+  shop: Item | undefined
+  location: Item | undefined
   currency: 'local' | 'foreign'
   amount: number
 }
@@ -49,7 +51,7 @@ export interface FilterContentProps {
   labelClassName?: string
 }
 
-export function FilterCard({
+export function Filter({
   type,
   options,
   value,
@@ -77,8 +79,8 @@ export function FilterCard({
             <span>{t('filter.title')}</span>
           </div>
         </AccordionTrigger>
-        <AccordionContent>
-          <div className="grid min-w-[340px] w-full items-center gap-4 pt-4 px-2">
+        <AccordionContent className="w-[calc(min(100vw-4rem,400px))]">
+          <div className="grid items-center gap-4 pt-4 px-2">
             {/* Shop Category */}
             <div className="flex flex-col space-y-2">
               <Label className={labelClassName} htmlFor="category">
@@ -88,28 +90,67 @@ export function FilterCard({
                 value={value.category?.value || ''}
                 onValueChange={(newValue) => {
                   const newCategory = categories.find((cat) => cat.value === newValue) || null
-                  setValue((prev) => ({ ...prev, category: newCategory }))
+                  setValue((prev) => {
+                    const isShopInCategory =
+                      prev.shop && prev.shop.groups && prev.shop.groups.includes(newValue)
+                    return {
+                      ...prev,
+                      category: newCategory,
+                      shop: isShopInCategory ? prev.shop : null,
+                    }
+                  })
                 }}
                 disabled={loading}
               >
                 <SelectTrigger className="w-full justify-between h-9">
                   <SelectValue placeholder={t('filter.category')}>
                     <Trans
-                      className="text-xs"
-                      i18nKey={`categories.${value.category?.value}`}
+                      i18nKey={[
+                        `options:categories.${value.category?.value}`,
+                        `categories.${value.category?.value}`,
+                      ]}
                       defaults={value.category?.label}
                     />
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent align="start">
-                  {categories.map((categoryItem) => (
-                    <SelectItem className="h-9" key={categoryItem.value} value={categoryItem.value}>
-                      <Trans
-                        i18nKey={`categories.${categoryItem.value}`}
-                        defaults={categoryItem.label}
-                      />
-                    </SelectItem>
-                  ))}
+                  {categories.reduce((acc, categoryItem, index) => {
+                    if (index === 0 || categoryItem.value.startsWith('+')) {
+                      // Start a new group
+                      const nextGroupIndex = categories.findIndex(
+                        (item, i) => i > index && item.value.startsWith('+'),
+                      )
+                      const groupEndIndex =
+                        nextGroupIndex === -1 ? categories.length : nextGroupIndex
+
+                      acc.push(
+                        <SelectGroup key={categoryItem.value}>
+                          <SelectLabel>
+                            <Trans
+                              i18nKey={[
+                                `options:categories.${categoryItem.value}`,
+                                `categories.${categoryItem.value}`,
+                              ]}
+                              defaults={categoryItem.label}
+                            />
+                          </SelectLabel>
+                          {/* Add only items belonging to this group */}
+                          {categories.slice(index + 1, groupEndIndex).map((subItem) => (
+                            <SelectItem key={subItem.value} value={subItem.value} className="h-9">
+                              <Trans
+                                i18nKey={[
+                                  `options:categories.${subItem.value}`,
+                                  `categories.${subItem.value}`,
+                                ]}
+                                defaults={subItem.label}
+                              />
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>,
+                      )
+                    }
+                    return acc
+                  }, [] as React.ReactNode[])}
                 </SelectContent>
               </Select>
             </div>
@@ -170,7 +211,7 @@ export function FilterCard({
                 disabled={type !== 'online' || loading}
               >
                 <SelectTrigger className="flex w-auto items-center justify-between h-9">
-                  <SelectValue placeholder={t('filter.currency.placeholder')}>
+                  <SelectValue placeholder={t('filter.placeholder.currency')}>
                     {type === 'local'
                       ? t('filter.currency.local')
                       : type === 'overseas'

@@ -4,8 +4,8 @@ import _ from 'lodash'
 import { imageUrl } from '@/lib/api'
 import { fromEnum } from '@/lib/enum'
 import { FilterValue } from '@/pages/home/filter'
-import { ResultCardBagdeProps, ResultCardProps } from '@/pages/home/result'
-import { Channel, Period, Rebate, RebateWithCard } from '@/services/credit-card/model'
+import { ResultBagdeProps, ResultProps } from '@/pages/home/result'
+import { Channel, Period, Rebate, RebateWithCard } from '@/services/card/model'
 
 export function filterToChannel(selectedTab: string, currency: string): Channel {
   let channel: Channel
@@ -125,17 +125,17 @@ export function periodT(period: Period | undefined, t: TFunction): string {
  * @param selectedTab - The currently selected tab/category which affects badge styling
  * @param filterValue - The filter criteria containing category, shop, location, and amount
  * @param t - Translation function from useTranslation hook
- * @returns {ResultCardProps} - An object containing properties to render a result card
+ * @returns {ResultProps} - An object containing properties to render a result card
  */
 export function rebateToResultCardProps(
   rebate: RebateWithCard,
   selectedTab: string,
   filterValue: FilterValue,
   t: TFunction,
-): ResultCardProps {
+): ResultProps {
   const { currency, amount } = filterValue
 
-  const details: ResultCardBagdeProps[] = []
+  const details: ResultBagdeProps[] = []
 
   // FCC / CBF
   if (
@@ -189,6 +189,7 @@ export function rebateToResultCardProps(
   }
 
   return {
+    id: rebate.id,
     imageUrl: imageUrl(rebate.cardId),
     title: rebate.card.name,
     percentages: rebate.card.percentages.map((percentage) => ({
@@ -196,5 +197,5 @@ export function rebateToResultCardProps(
       children: `${percentage}%`,
     })),
     details,
-  } as ResultCardProps
+  } as ResultProps
 }

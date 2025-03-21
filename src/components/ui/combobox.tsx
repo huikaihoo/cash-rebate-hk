@@ -49,11 +49,13 @@ export function ComboboxResponsive({
   const triggerButton = (
     <Button
       aria-expanded={open}
-      variant="outline"
-      className="justify-between w-full border-none pl-3 pr-2"
+      variant="none"
+      className="justify-between w-full border-none pl-3 pr-2 [&>span]:line-clamp-1"
       disabled={disabled}
     >
-      {item ? <>{item.label}</> : <div className="text-muted-foreground">{placeholder}</div>}
+      <span className="text-left text-wrap">
+        {item ? item.label : <span className="text-muted-foreground">{placeholder}</span>}
+      </span>
       <ChevronsUpDown className="h-4 w-4 opacity-50" />
     </Button>
   )
